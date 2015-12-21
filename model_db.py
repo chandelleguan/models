@@ -1,4 +1,12 @@
 # -*- coding: utf-8 -*-
+#
+# Author: Chenyu Guan
+#
+# Created Time: 2015年12月20日
+#
+'''
+    数据持久化操作
+'''
 
 import torndb
 import model_config
@@ -75,11 +83,24 @@ class Model(object):
 
     @classmethod
     @get_connection
-    def query_in_time_order(cls, connection, para=None):
+    def query_in_time_order(cls, connection):
         '''
             按照所属论文的发表时间进行排序返回记录集
         '''
-        pass
+        sql = (
+            'SELECT * '
+            'FROM homepage.article '
+            'NATURAL JOIN homepage.paper '
+            'NATURAL JOIN model '
+            'ORDER BY publish_year DESC'
+        )
+        return connection.query(sql)
+
+    @classmethod
+    def chew(cls, model):
+        '''
+            model 处理函数
+        '''
 
 
 class Application(object):
@@ -97,6 +118,12 @@ class Application(object):
         '''
         sql = 'SELECT * FROM applicaton WHERE app_id = %s'
         return connection.get(sql, app_id)
+
+    @classmethod
+    def chew(cls, model):
+        '''
+            model 处理函数
+        '''
 
 
 class Baseline(object):
@@ -123,6 +150,12 @@ class Baseline(object):
         sql = 'SELECT * FROM baseline WHERE exp_id = %s'
         return connection.query(sql, exp_id)
 
+    @classmethod
+    def chew(cls, model):
+        '''
+            model 处理函数
+        '''
+
 
 class Dataset(object):
     '''
@@ -147,6 +180,12 @@ class Dataset(object):
         '''
         sql = 'SELECT * FROM dataset WHERE exp_id = %s'
         return connection.query(sql, exp_id)
+
+    @classmethod
+    def chew(cls, model):
+        '''
+            model 处理函数
+        '''
 
 
 class Evaluation(object):
@@ -173,6 +212,12 @@ class Evaluation(object):
         sql = 'SELECT * FROM evaluation WHERE exp_id = %s'
         return connection.query(sql, exp_id)
 
+    @classmethod
+    def chew(cls, model):
+        '''
+            model 处理函数
+        '''
+
 
 class Result(object):
     '''
@@ -197,6 +242,12 @@ class Result(object):
         '''
         sql = 'SELECT * FROM result WHERE exp_id = %s'
         return connection.query(sql, exp_id)
+
+    @classmethod
+    def chew(cls, model):
+        '''
+            model 处理函数
+        '''
 
 
 class Experiment(object):
@@ -223,6 +274,12 @@ class Experiment(object):
         sql = 'SELECT * FROM experiment WHERE model_id = %s'
         return connection.query(sql, model_id)
 
+    @classmethod
+    def chew(cls, model):
+        '''
+            model 处理函数
+        '''
+
 
 class Process(object):
     '''
@@ -238,3 +295,9 @@ class Process(object):
         '''
         sql = 'SELECT * FROM process WHERE proc_id = %s'
         return connection.get(sql, proc_id)
+
+    @classmethod
+    def chew(cls, model):
+        '''
+            model 处理函数
+        '''
