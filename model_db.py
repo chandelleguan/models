@@ -9,8 +9,9 @@
 '''
 
 import torndb
-import model_config
 import logging
+
+import model_config
 
 
 conf = model_config
@@ -74,11 +75,21 @@ class Model(object):
 
     @classmethod
     @get_connection
-    def query(cls, connection):
+    def query(cls, connection, query_num=1):
         '''
             直接返回全部model记录
+            query_num表示显示次数，即第几次显示
         '''
-        sql = 'SELECT * FROM model'
+        entry_number = 10  # 每次显示的记录数目
+        query_num = query_num if query_num >= 1 else 1
+
+        sql = (
+            'SELECT * FROM model LIMIT {start}, {end}'
+        ).format(
+            start=(query_num - 1) * entry_number,
+            end=query_num * entry_number,
+        )
+
         return connection.query(sql)
 
     @classmethod
@@ -101,6 +112,13 @@ class Model(object):
         '''
             model 处理函数
         '''
+        application = Application.get_in_app_id(model.app)
+        if application:
+            model.app = application.app_type
+        else:
+            model.app = 'Not Classified Yet'
+
+        return model
 
 
 class Application(object):
@@ -116,7 +134,7 @@ class Application(object):
         '''
             按app_id取类别记录
         '''
-        sql = 'SELECT * FROM applicaton WHERE app_id = %s'
+        sql = 'SELECT * FROM application WHERE app_id = %s'
         return connection.get(sql, app_id)
 
     @classmethod
@@ -297,7 +315,9 @@ class Process(object):
         return connection.get(sql, proc_id)
 
     @classmethod
-    def chew(cls, model):
+    def chew(cls, process):
         '''
-            model 处理函数
+            process 处理函数
         '''
+
+        return process

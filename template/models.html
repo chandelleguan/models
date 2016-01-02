@@ -1,0 +1,15 @@
+<html>
+    <head>
+        <title>{{page_title}}</title>
+    </head>
+<body>
+    <ul>
+        {% for model in models %}
+            {% module ModelItem(model) %}
+        {% end %}
+    </ul>
+    <div>
+        Load More 
+    </div>
+</body>
+</html>
