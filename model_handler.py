@@ -15,7 +15,7 @@ import model_db
 import traceback
 
 import model_modules
-import database
+# import database
 
 
 class BaseHandler(tornado.web.RequestHandler):
@@ -33,7 +33,7 @@ class BaseHandler(tornado.web.RequestHandler):
             message = str(status_code)
         # email_sender.async_send(title="服务器错误", message=message)
         print message  # 暂时代替上一行
-        self.render('404.html', page_title="404")
+        self.render("404.html", page_title="404")
 
 
 class ModelsHandler(BaseHandler):
@@ -84,11 +84,18 @@ class ModelHandler(BaseHandler):
         model = model_db.Model.get_in_model_id(model_id)
         model = model_db.Model.chew(model)
 
-        paper = database.Paper.get(model.refer)
-        paper = database.Paper.chew(paper)
+        paper = model_db.Paper.get(model.refer)
+        paper = model_db.Paper.chew(paper)
 
-        process = model_db.Model.get_in_proc_id(model.model_proc)
-        process = model_db.Model.chew(process)
+        process = model_db.Process.get_in_proc_id(model.proc)
+        process = model_db.Process.chew(process)
+
+        experiments = model_db.Experiment.query(model_id)
+        if experiments:
+            experiments = (
+                [model_db.Experiment.chew(experiment)
+                    for experiment in experiments]
+            )
 
         self.render(
             "model.html",
@@ -96,13 +103,75 @@ class ModelHandler(BaseHandler):
             model=model,
             paper=paper,
             process=process,
+            experiments=experiments,
         )
 
 
 class ExperimentHandler(BaseHandler):
     '''
-        模型实验效果展示页handler
+        单个模型实验效果展示页handler
     '''
+    def get(self, exp_id):
+
+        experiment = model_db.Experiment.get_in_exp_id(exp_id)
+        experiment = model_db.Experiment.chew(experiment)
+
+        datasets = model_db.Dataset.query(exp_id)
+        if datasets:
+            datasets = (
+                [model_db.Dataset.chew(dataset)
+                    for dataset in datasets]
+            )
+
+        evaluations = model_db.Evaluation.query(exp_id)
+        if evaluations:
+            evaluations = (
+                [model_db.Evaluation.chew(evaluation)
+                    for evaluation in evaluations]
+            )
+
+        baselines = model_db.Baseline.query(exp_id)
+        if baselines:
+            baselines = (
+                [model_db.Baseline.chew(baseline)
+                    for baseline in baselines]
+            )
+
+        results = model_db.Result.query(exp_id)
+        if results:
+            results = (
+                [model_db.Result.chew(result)
+                    for result in results]
+            )
+
+        self.render(
+            "experiment.html",
+            page_title=experiment.exp_name,
+            experiment=experiment,
+            datasets=datasets,
+            evaluations=evaluations,
+            baselines=baselines,
+            results=results,
+        )
+
+    def post(self):
+        '''
+            接收客户请求做出相应显示
+        '''
+
+
+class PaperHandler(BaseHandler):
+
+    def get(self, paper_id):
+
+        paper = model_db.Paper.get(paper_id)
+        paper = model_db.Paper.chew(paper)
+
+        self.render(
+            "paper.html",
+            page_title=paper.title,
+            paper=paper,
+        )
 
 
 def main():

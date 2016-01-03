@@ -100,8 +100,7 @@ class Model(object):
         '''
         sql = (
             'SELECT * '
-            'FROM homepage.article '
-            'NATURAL JOIN homepage.paper '
+            'FROM paper '
             'NATURAL JOIN model '
             'ORDER BY publish_year DESC'
         )
@@ -138,10 +137,12 @@ class Application(object):
         return connection.get(sql, app_id)
 
     @classmethod
-    def chew(cls, model):
+    def chew(cls, application):
         '''
-            model 处理函数
+            application 处理函数
         '''
+
+        return application
 
 
 class Baseline(object):
@@ -169,10 +170,12 @@ class Baseline(object):
         return connection.query(sql, exp_id)
 
     @classmethod
-    def chew(cls, model):
+    def chew(cls, baseline):
         '''
-            model 处理函数
+            baseline 处理函数
         '''
+
+        return baseline
 
 
 class Dataset(object):
@@ -200,10 +203,12 @@ class Dataset(object):
         return connection.query(sql, exp_id)
 
     @classmethod
-    def chew(cls, model):
+    def chew(cls, dataset):
         '''
-            model 处理函数
+            dataset 处理函数
         '''
+
+        return dataset
 
 
 class Evaluation(object):
@@ -231,10 +236,12 @@ class Evaluation(object):
         return connection.query(sql, exp_id)
 
     @classmethod
-    def chew(cls, model):
+    def chew(cls, evaluation):
         '''
-            model 处理函数
+            evaluation 处理函数
         '''
+
+        return evaluation
 
 
 class Result(object):
@@ -262,10 +269,12 @@ class Result(object):
         return connection.query(sql, exp_id)
 
     @classmethod
-    def chew(cls, model):
+    def chew(cls, result):
         '''
-            model 处理函数
+            result 处理函数
         '''
+
+        return result
 
 
 class Experiment(object):
@@ -287,16 +296,18 @@ class Experiment(object):
     @get_connection
     def query(cls, connection, model_id):
         '''
-            按model_id所属模型获取属于该模型的实验记录
+            按model_id所属模型获取属于该模型的实验记录，一条或多条
         '''
         sql = 'SELECT * FROM experiment WHERE model_id = %s'
         return connection.query(sql, model_id)
 
     @classmethod
-    def chew(cls, model):
+    def chew(cls, experiment):
         '''
-            model 处理函数
+            experiment 处理函数
         '''
+
+        return experiment
 
 
 class Process(object):
@@ -321,3 +332,24 @@ class Process(object):
         '''
 
         return process
+
+
+class Paper(object):
+    '''
+        模型详细信息paper表持久化，用来做测试
+    '''
+    db = 'model_db'
+
+    @classmethod
+    @get_connection
+    def get(cls, connection, paper_id):
+        '''
+            按paper_id取单条记录
+        '''
+        sql = 'SELECT * FROM paper WHERE paper_id = %s'
+        return connection.get(sql, paper_id)
+
+    @classmethod
+    def chew(cls, paper):
+
+        return paper

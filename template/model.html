@@ -3,17 +3,29 @@
         <title>{{page_title}}</title>
     </head>
 <body>
-    <h2>{{model.name}}</h2>
+    <h2 align=center>{{model.name}}</h2>
+    <hr />
     <ul>
-        <li><a href="paper.pdf_url">{{paper.title}}</a></li>  <!--超链接到该论文-->
+        <h4>INFO</h4>
+        REFERENCE
+        <li><a href="/paper/{{paper.paper_id}}" target="_blank">{{paper.title}}</a></li>  <!--超链接到该论文-->
+        <br />
+        APPLICATION
         <li>{{model.app}}</li>
+        <br />
+        OBJECTIVE
         <li>{{model.goal}}</li>
-        <div>
-            <ul>
-                <li>{{process.info}}</li>
-                <li>{{process.pic}}</li>
-            </ul>
-        </div>
+        <br />
+        PROCEDURE
+        <li>{{process.proc_info}}</li>
+        <li>{{process.proc_pic}}</li>
+        <br />
+        EXPERIMENT
+        {% for experiment in experiments %}
+        <li>
+            <a href="/experiment/{{experiment.exp_id}}" target="_blank">{{experiment.exp_name}}</a>
+        </li>
+        {% end %}
     </ul>
 </body>
 </html>

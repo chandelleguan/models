@@ -1,0 +1,75 @@
+<html>
+    <head>
+        <title>{{page_title}}</title>
+    </head>
+<body>
+    <h2 align=center>{{experiment.exp_name}}</h2>
+    <hr />
+    <ul>
+        <h4>DATA SETS</h4>
+        <div>
+        <table border="1">
+            <tr>
+                <th>Data Source</th>
+                <th>Description</th>
+                <th>URL</th>
+            </tr>
+            {% for dataset in datasets %}
+            <tr>
+                <td>{{dataset.data_name}}</td>
+                <td>{{dataset.data_info}}</td>
+                <td>{{dataset.data_url}}</td>
+            </tr>
+            {% end %}
+        </table>
+        {% if dataset.data_pic %}
+            {{dataset.data_pic}}
+        {% end %}
+        </div>
+        <br />
+
+        <h4>EVALUATION MEARSURES</h4>
+        <div>
+            {% for evaluation in evaluations %}
+            <ul>
+                <li>Name: {{evaluation.evl_name}}</li>
+                <li>{{evaluation.evl_formul}}</li>
+                <li>Description: {{evaluation.evl_info}}</li>
+            </ul>
+            {% end %}
+        </div>
+        <br />
+
+        <h4>BASELINES</h4>
+        <div>
+        <table border="1">
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Reference</th>
+            </tr>
+            {% for baseline in baselines %}
+            <tr>
+                <td>{{baseline.base_name}}</td>
+                <td>{{baseline.base_info}}</td>
+                <td>{{baseline.base_refer}}</td>
+            </tr>
+            {% end %}
+        </table>
+        </div>
+        <br />
+
+        <h4>EXPERIMENTAL RESULTS</h4>
+        <div>
+            {% for result in results %}
+            <ul>
+                <li>{{result.result_pic}}</li>
+                <li>Description: {{result.result_info}}</li>
+            </ul>
+            {% end %}
+        </div>
+        <br />
+     
+    </ul>
+</body>
+</html>
