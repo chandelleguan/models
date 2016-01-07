@@ -1,29 +1,37 @@
 <html>
-    <head>
-        <title>{{page_title}}</title>
-    </head>
+<head>
+    <title>{{page_title}}</title>
+<style>
+img{ max-height: 500px}
+</style>
+</head>
 <body>
     <h2 align=center>{{model.name}}</h2>
-    <hr />
+    <hr>
+
     <ul>
-        <h4>INFO</h4>
-        REFERENCE
-        <li><a href="/paper/{{paper.paper_id}}" target="_blank">{{paper.title}}</a></li>  <!--超链接到该论文-->
-        <br />
-        APPLICATION
-        <li>{{model.app}}</li>
-        <br />
-        OBJECTIVE
-        <li>{{model.goal}}</li>
-        <br />
-        PROCEDURE
-        <li>{{process.proc_info}}</li>
-        <li>{{process.proc_pic}}</li>
-        <br />
-        EXPERIMENT
+        <h3>INFO</h3>
+        <h3>REFERENCE</h3>
+        <a href="/paper/{{paper.paper_id}}" target="_blank">{{paper.title}}</a> <!--超链接到该论文-->
+        <br>
+
+        <h3>APPLICATION</h3>
+        {{model.app}}
+        <br>
+
+        <h3>OBJECTIVE</h3>
+        {{model.goal}}
+        <br>
+
+        <h3>PROCEDURE</h3>
+        <p>{{process.proc_info}}</p>
+        <img src="{{static_url(process.proc_pic)}}">
+        <br>
+
+        <h3>EXPERIMENT</h3>
         {% for experiment in experiments %}
         <li>
-            <a href="/experiment/{{experiment.exp_id}}" target="_blank">{{experiment.exp_name}}</a>
+            <a href="/experiment/{{experiment.exp_id}}?model_id={{model.model_id}}" target="_blank">{{experiment.exp_name}}</a>
         </li>
         {% end %}
     </ul>

@@ -1,74 +1,74 @@
+<!DOCTYPE html>
 <html>
-    <head>
-        <title>{{page_title}}</title>
-    </head>
+<head>
+    <title>{{page_title}}</title>
+<style>
+img{ max-height: 300px}
+</style>
+</head>
 <body>
     <h2 align=center>{{experiment.exp_name}}</h2>
     <hr />
     <ul>
-        <h4>DATA SETS</h4>
+        <h3>DATA SETS</h3>
         <div>
-        <table border="1">
-            <tr>
-                <th>Data Source</th>
-                <th>Description</th>
-                <th>URL</th>
-            </tr>
-            {% for dataset in datasets %}
-            <tr>
-                <td>{{dataset.data_name}}</td>
-                <td>{{dataset.data_info}}</td>
-                <td>{{dataset.data_url}}</td>
-            </tr>
-            {% end %}
-        </table>
+        {% for dataset in datasets %}
+            <li>
+                <h4>{{dataset.data_name}}</h4>
+                <p>{{dataset.data_info}}</p>
+                {% if dataset.data_url %}
+                    Links: <a href="{{dataset.data_url}}" target="_blank">{{dataset.data_url}}</a>
+                {% end %}
+            </li>
+        {% end %}
         {% if dataset.data_pic %}
             {{dataset.data_pic}}
         {% end %}
         </div>
-        <br />
+        <br>
 
-        <h4>EVALUATION MEARSURES</h4>
+        <h3>PARAMETER SETTING</h3>
+        <p>{{experiment.exp_parameter}}</p>
+        <br>
+
+        <h3>EVALUATION MEARSURES</h3>
         <div>
             {% for evaluation in evaluations %}
-            <ul>
-                <li>Name: {{evaluation.evl_name}}</li>
-                <li>{{evaluation.evl_formul}}</li>
-                <li>Description: {{evaluation.evl_info}}</li>
-            </ul>
+            <li>
+                <h4>{{evaluation.evl_name}}</h4>
+                {% if evaluation.evl_formul %}
+                    {{evaluation.evl_formul}}
+                {% end %}
+                <p>{{evaluation.evl_info}}</p>
+            </li>
             {% end %}
         </div>
-        <br />
+        <br>
 
-        <h4>BASELINES</h4>
+        <h3>BASELINES</h3>
         <div>
-        <table border="1">
-            <tr>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Reference</th>
-            </tr>
-            {% for baseline in baselines %}
-            <tr>
-                <td>{{baseline.base_name}}</td>
-                <td>{{baseline.base_info}}</td>
-                <td>{{baseline.base_refer}}</td>
-            </tr>
-            {% end %}
-        </table>
+        {% for baseline in baselines %}
+            <li>
+                <h4>{{baseline.base_name}}</h4>
+                <p>{{baseline.base_info}}</p>
+                {% if baseline.base_refer %}
+                    Referrence: <em>{{baseline.base_refer}}</em>
+                {% end %}
+            </li>
+        {% end %}
         </div>
-        <br />
+        <br>
 
-        <h4>EXPERIMENTAL RESULTS</h4>
+        <h3>EXPERIMENTAL RESULTS</h3>
         <div>
             {% for result in results %}
-            <ul>
-                <li>{{result.result_pic}}</li>
-                <li>Description: {{result.result_info}}</li>
-            </ul>
+            
+                <p><img src="{{static_url(result.result_pic)}}"></p>
+                <p><B>Description:</B> {{result.result_info}}</p>
+                <br>
             {% end %}
         </div>
-        <br />
+        <br>
      
     </ul>
 </body>

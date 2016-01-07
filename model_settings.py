@@ -10,6 +10,7 @@ import model_modules
 
 settings = {
     'debug': True,
+    'autoescape': None,
     'static_path': os.path.join(os.path.dirname(__file__), "static"),
     'template_path': os.path.join(os.path.dirname(__file__), "template"),
     'ui_modules': {

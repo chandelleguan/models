@@ -113,10 +113,14 @@ class ExperimentHandler(BaseHandler):
     '''
     def get(self, exp_id):
 
+        model_id = self.get_argument("model_id", 0)
+
         experiment = model_db.Experiment.get_in_exp_id(exp_id)
         experiment = model_db.Experiment.chew(experiment)
 
-        datasets = model_db.Dataset.query(exp_id)
+        datasets = model_db.Dataset.query_in_model_id(model_id)
+        if not datasets:  # 若按照model_id取出来记录为空，则说明用exp_id标注
+            datasets = model_db.Dataset.query_in_exp_id(exp_id)
         if datasets:
             datasets = (
                 [model_db.Dataset.chew(dataset)

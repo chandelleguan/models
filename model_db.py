@@ -12,6 +12,7 @@ import torndb
 import logging
 
 import model_config
+import chewer
 
 
 conf = model_config
@@ -195,7 +196,16 @@ class Dataset(object):
 
     @classmethod
     @get_connection
-    def query(cls, connection, exp_id):
+    def query_in_model_id(cls, connection, model_id):
+        '''
+            按model_id所属模型获取属于该模型的dataset记录
+        '''
+        sql = 'SELECT * FROM dataset WHERE model_id = %s'
+        return connection.query(sql, model_id)
+
+    @classmethod
+    @get_connection
+    def query_in_exp_id(cls, connection, exp_id):
         '''
             按exp_id所属实验获取属于该实验的dataset记录
         '''
@@ -273,6 +283,8 @@ class Result(object):
         '''
             result 处理函数
         '''
+        result.result_pic = \
+            chewer.static_image('result/' + str(result.result_id))
 
         return result
 
@@ -330,6 +342,8 @@ class Process(object):
         '''
             process 处理函数
         '''
+        process.proc_pic = \
+            chewer.static_image('process/' + str(process.proc_id))
 
         return process
 
