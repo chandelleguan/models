@@ -134,7 +134,7 @@ class Application(object):
         '''
             按app_id取类别记录
         '''
-        sql = 'SELECT * FROM application WHERE app_id = %s'
+        sql = 'SELECT * FROM model_application WHERE app_id = %s'
         return connection.get(sql, app_id)
 
     @classmethod
@@ -158,7 +158,7 @@ class Baseline(object):
         '''
             按base_id获取单条记录
         '''
-        sql = 'SELECT * FROM baseline WHERE base_id = %s'
+        sql = 'SELECT * FROM model_baseline WHERE base_id = %s'
         return connection.get(sql, base_id)
 
     @classmethod
@@ -167,7 +167,7 @@ class Baseline(object):
         '''
             按exp_id所属实验获取属于该实验的baseline记录
         '''
-        sql = 'SELECT * FROM baseline WHERE exp_id = %s'
+        sql = 'SELECT * FROM model_baseline WHERE exp_id = %s'
         return connection.query(sql, exp_id)
 
     @classmethod
@@ -191,7 +191,7 @@ class Dataset(object):
         '''
             按data_id取单条记录
         '''
-        sql = 'SELECT * FROM dataset WHERE data_id = %s'
+        sql = 'SELECT * FROM model_dataset WHERE data_id = %s'
         return connection.get(sql, data_id)
 
     @classmethod
@@ -200,7 +200,7 @@ class Dataset(object):
         '''
             按model_id所属模型获取属于该模型的dataset记录
         '''
-        sql = 'SELECT * FROM dataset WHERE model_id = %s'
+        sql = 'SELECT * FROM model_dataset WHERE model_id = %s'
         return connection.query(sql, model_id)
 
     @classmethod
@@ -209,7 +209,7 @@ class Dataset(object):
         '''
             按exp_id所属实验获取属于该实验的dataset记录
         '''
-        sql = 'SELECT * FROM dataset WHERE exp_id = %s'
+        sql = 'SELECT * FROM model_dataset WHERE exp_id = %s'
         return connection.query(sql, exp_id)
 
     @classmethod
@@ -233,7 +233,7 @@ class Evaluation(object):
         '''
             按evl_id取单条记录
         '''
-        sql = 'SELECT * FROM evaluation WHERE evl_id = %s'
+        sql = 'SELECT * FROM model_evaluation WHERE evl_id = %s'
         return connection.get(sql, evl_id)
 
     @classmethod
@@ -242,7 +242,7 @@ class Evaluation(object):
         '''
             按exp_id所属实验获取属于该实验的evaluation记录
         '''
-        sql = 'SELECT * FROM evaluation WHERE exp_id = %s'
+        sql = 'SELECT * FROM model_evaluation WHERE exp_id = %s'
         return connection.query(sql, exp_id)
 
     @classmethod
@@ -264,9 +264,9 @@ class Result(object):
     @get_connection
     def get_in_result_id(cls, connection, result_id):
         '''
-            按evl_id取单条记录
+            按result_id取单条记录
         '''
-        sql = 'SELECT * FROM result WHERE result_id = %s'
+        sql = 'SELECT * FROM model_result WHERE result_id = %s'
         return connection.get(sql, result_id)
 
     @classmethod
@@ -275,7 +275,7 @@ class Result(object):
         '''
             按exp_id所属实验获取属于该实验的result记录
         '''
-        sql = 'SELECT * FROM result WHERE exp_id = %s'
+        sql = 'SELECT * FROM model_result WHERE exp_id = %s'
         return connection.query(sql, exp_id)
 
     @classmethod
@@ -301,7 +301,7 @@ class Experiment(object):
         '''
             按exp_id取单条记录
         '''
-        sql = 'SELECT * FROM experiment WHERE exp_id = %s'
+        sql = 'SELECT * FROM model_experiment WHERE exp_id = %s'
         return connection.get(sql, exp_id)
 
     @classmethod
@@ -310,7 +310,7 @@ class Experiment(object):
         '''
             按model_id所属模型获取属于该模型的实验记录，一条或多条
         '''
-        sql = 'SELECT * FROM experiment WHERE model_id = %s'
+        sql = 'SELECT * FROM model_experiment WHERE model_id = %s'
         return connection.query(sql, model_id)
 
     @classmethod
@@ -334,7 +334,7 @@ class Process(object):
         '''
             按proc_id取单条记录
         '''
-        sql = 'SELECT * FROM process WHERE proc_id = %s'
+        sql = 'SELECT * FROM model_process WHERE proc_id = %s'
         return connection.get(sql, proc_id)
 
     @classmethod

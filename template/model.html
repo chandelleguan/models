@@ -2,17 +2,22 @@
 <head>
     <title>{{page_title}}</title>
 <style>
+a{color: #000}
+a:link,a:visited{
+ text-decoration:none;  /*超链接无下划线*/
+}
 img{ max-height: 500px}
 </style>
 </head>
 <body>
+    <br>
     <h2 align=center>{{model.name}}</h2>
-    <hr>
+    <br>
 
     <ul>
         <h3>INFO</h3>
         <h3>REFERENCE</h3>
-        <a href="/paper/{{paper.paper_id}}" target="_blank">{{paper.title}}</a> <!--超链接到该论文-->
+        <a href="/paper/{{paper.paper_id}}" target="_blank"><I>{{paper.title}}</I></a> <!--超链接到该论文-->
         <br>
 
         <h3>APPLICATION</h3>

@@ -1,8 +1,17 @@
 <html>
-    <head>
-        <title>{{page_title}}</title>
-    </head>
+<head>
+    <title>{{page_title}}</title>
+</head>
+<style type="text/css">
+a{color: #000}
+a:link,a:visited{
+ text-decoration:none;
+}
+</style>
 <body>
+    <br>
+    <h2 align=center>MODEL LIST</h2>
+    <br>
     <ul>
         {% for model in models %}
             {% module ModelItem(model) %}

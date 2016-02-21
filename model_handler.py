@@ -7,14 +7,12 @@
 '''
     业务处理逻辑
 '''
-import os.path
 
 import tornado.web
 import model_db
 # import email_sender
 import traceback
 
-import model_modules
 # import database
 
 
@@ -176,18 +174,3 @@ class PaperHandler(BaseHandler):
             page_title=paper.title,
             paper=paper,
         )
-
-
-def main():
-    # parse_command_line()
-    app = tornado.web.Application(
-        handlers=[(r'/', ModelsHandler)],
-        # 'static_path': config.Config.get_local_position('static'),
-        template_path=os.path.join(os.path.dirname(__file__), "template"),
-        ui_modules={'ModelItem': model_modules.ModelListItemModule}
-    )
-    app.listen(8888)
-    tornado.ioloop.IOLoop.instance().start()
-
-if __name__ == "__main__":
-    main()

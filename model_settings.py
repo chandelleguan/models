@@ -10,7 +10,7 @@ import model_modules
 
 settings = {
     'debug': True,
-    'autoescape': None,
+    'autoescape': None,  # 数据库中的数据以HTML格式显示，即取消自动转义
     'static_path': os.path.join(os.path.dirname(__file__), "static"),
     'template_path': os.path.join(os.path.dirname(__file__), "template"),
     'ui_modules': {

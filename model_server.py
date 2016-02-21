@@ -36,3 +36,4 @@ if __name__ == "__main__":
     finally:
         server_instance.add_callback(server_instance.stop)
         exit_error = str(datetime.datetime.now()) + '\n' + exit_error
+        # ！！！exit_error未定义
