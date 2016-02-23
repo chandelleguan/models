@@ -95,15 +95,22 @@ class Model(object):
 
     @classmethod
     @get_connection
-    def query_in_time_order(cls, connection):
+    def query_in_time_order(cls, connection, query_num=1):
         '''
             按照所属论文的发表时间进行排序返回记录集
         '''
+        entry_number = 10  # 每次显示的记录数目
+        query_num = query_num if query_num >= 1 else 1
+
         sql = (
             'SELECT * '
             'FROM paper '
             'NATURAL JOIN model '
             'ORDER BY publish_year DESC'
+            'LIMIT {start}, {end}'
+        ).format(
+            start=(query_num - 1) * entry_number,
+            end=query_num * entry_number,
         )
         return connection.query(sql)
 
